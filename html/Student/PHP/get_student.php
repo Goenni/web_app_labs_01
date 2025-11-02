@@ -1,5 +1,6 @@
 <?php
-include ("../../Shared/DatabaseSingleton.php");
+include_once("../../Shared/DatabaseSingleton.php");
+include ("../../Shared/verify_credentials.php");
 use Shared\DatabaseSingleton;
 function getStudent()
 {
@@ -13,26 +14,19 @@ function getStudent()
         exit();
     }
 
-    $result = $db->query("SELECT * FROM students WHERE student_id = '$student_id'");
-
-    if ($result->num_rows > 0) {
-        $student = $result->fetch_assoc();
-
         // Verify password (assuming it's stored as plain text; use password_verify() if hashed)
-        if (password_verify($password, $student['password'])) {
+        if (verify_student_credentials($student_id, $password)) {
             // Login successful
-            $_SESSION['student_id'] = $student['student_id'];
-            $_SESSION['firstname'] = $student['firstname'];
-            $_SESSION['lastname'] = $student['lastname'];
+            $result = $db->query("SELECT * FROM students WHERE student_id = '$student_id'");
+            $_SESSION['student_id'] = $result['student_id'];
+            $_SESSION['firstname'] = $result['firstname'];
+            $_SESSION['lastname'] = $result['lastname'];
 
             // Redirect to dashboard or home page
             header("Location: ../HTML/home.php");
             exit();
         } else {
-            echo "Invalid password.";
-        }
-    } else {
-        echo "Student not found.";
+            echo "Invalid password or Student not found.";
     }
 }
 

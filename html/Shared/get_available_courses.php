@@ -1,5 +1,5 @@
 <?php
-include ("DatabaseSingleton.php");
+include_once ("DatabaseSingleton.php");
 use Shared\DatabaseSingleton;
 
 function getAvailableCourses(){

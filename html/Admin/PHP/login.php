@@ -1,6 +1,7 @@
 <?php
-include ("../../Shared/DatabaseSingleton.php");
+include_once("../../Shared/DatabaseSingleton.php");
 use Shared\DatabaseSingleton;
+include ("../../Shared/verify_credentials.php");
 
 function login($username, $password)
 {
@@ -15,20 +16,19 @@ function login($username, $password)
     $result = $db->query("SELECT * FROM admin WHERE username = '$username'");
 
     if ($result->num_rows > 0) {
-        $student = $result->fetch_assoc();
+        $admin = $result->fetch_assoc();
 
         // Verify password (assuming it's stored as plain text; use password_verify() if hashed)
-        if (password_verify($password, $student['password'])) {
+        if (verify_admin_credentials($admin['username'], $admin['password'])) {
             // Login successful
             // Redirect to dashboard or home page
+            $_SESSION['admin'] = $admin;
+            $_SESSION['password'] = password_hash($password, PASSWORD_DEFAULT);
             header("Location: ../HTML/home.php");
             exit();
         } else {
-            echo "Invalid password.";
+            echo "Invalid password or username.";
         }
-    } else {
-        echo "Student not found.";
     }
 }
-
 login($_POST['username'], $_POST['password']);

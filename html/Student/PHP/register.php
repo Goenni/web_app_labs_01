@@ -1,5 +1,5 @@
 <?php
-include ("../../Shared/DatabaseSingleton.php");
+include_once("../../Shared/DatabaseSingleton.php");
 use Shared\DatabaseSingleton;
 session_start();
 function registerStudent()
@@ -19,16 +19,16 @@ function registerStudent()
     }
 
     // Hash the password
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    $hashed_password = password_hash(password_hash($password, PASSWORD_DEFAULT), PASSWORD_DEFAULT);
 
     // Insert the student into the database
     $query = "INSERT INTO students (student_id, firstname, lastname, password) 
               VALUES ($student_id, '$firstname', '$lastname', '$hashed_password')";
 
     if ($db->query($query) === TRUE) {
+        header("Location: ../HTML/login.php");
         echo "Student registered successfully!";
         // Optionally redirect to another page
-        header("Location: ../home.php");
         exit();
     } else {
         echo "Error: " . $db->error;

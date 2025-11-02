@@ -1,45 +1,40 @@
-<!Doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Login</title>
-    <link rel="stylesheet" type="text/css" href="../CSS/student.css">
-    </head>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
 <body>
-    <form method="post" action="../PHP/get_student.php">
-        <input type="text" name="student_id" placeholder="Student ID">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit" value="Login">
-    </form>
-    <p>A new acolyte? Register here:</p>
-    <button onclick="openPopup()">Register</button>
-    <div id="popup" class="register">
-        <div class="register-popup-content">
-            <span class="close" onclick="closePopup()">&times;</span>
-            <form method="POST" action="../PHP/register.php">
-                <input type="text" name="student_id" placeholder="Student ID">
-                <input type="text" name="firstname" placeholder="First Name" required>
-                <input type="text" name="lastname" placeholder="Last Name" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <input type="submit" value="Submit" id="register_submit">
-            </form>
-            <script>document.getElementById("register_submit").addEventListener("submit",function (e){e.preventDefault();closePopup()})</script>
-        </div>
-    </div>
 
-    <script>
-        function openPopup() {
-            document.getElementById("popup").style.display = "flex";
-        }
+<!-- Login Form -->
+<form method="post" action="../PHP/get_student.php">
+    <input type="text" name="student_id" placeholder="Student ID">
+    <input type="password" name="password" placeholder="Password">
+    <input type="submit" value="Login">
+</form>
+<!-- Popup for Register Form -->
+        <form method="POST" action="../PHP/register.php">
+            <input type="text" name="student_id" placeholder="Student ID">
+            <input type="text" name="firstname" placeholder="First Name" required>
+            <input type="text" name="lastname" placeholder="Last Name" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Register">
+        </form>
 
-        function closePopup() {
-            document.getElementById("popup").style.display = "none";
-        }
 
-        window.onclick = function(event) {
-            const popup = document.getElementById("popup");
-            if (event.target === popup) {
-                popup.style.display = "none";
-            }
-        }
-    </script>
+<script>
+    // Function to open the Register Popup
+    function openRegisterPopup() {
+        document.getElementById("registerPopup").classList.remove("hidden");
+    }
+
+    // Function to close the Register Popup
+    function closeRegisterPopup() {
+        document.getElementById("registerPopup").classList.add("hidden");
+    }
+</script>
+
 </body>
+</html>

@@ -1,5 +1,5 @@
 <?php
-include ("../../Shared/DatabaseSingleton.php");
+include_once("../../Shared/DatabaseSingleton.php");
 use Shared\DatabaseSingleton;
 function getStudentsCourses(){
     $db = DatabaseSingleton::getInstance()->getConnection();
