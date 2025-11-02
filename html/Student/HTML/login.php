@@ -6,7 +6,7 @@
     </head>
 <body>
     <form method="post" action="../PHP/get_student.php">
-        <input type="text" name="username" placeholder="Username">
+        <input type="text" name="student_id" placeholder="Student ID">
         <input type="password" name="password" placeholder="Password">
         <input type="submit" value="Login">
     </form>
@@ -16,6 +16,7 @@
         <div class="register-popup-content">
             <span class="close" onclick="closePopup()">&times;</span>
             <form method="POST" action="../PHP/register.php">
+                <input type="text" name="student_id" placeholder="Student ID">
                 <input type="text" name="firstname" placeholder="First Name" required>
                 <input type="text" name="lastname" placeholder="Last Name" required>
                 <input type="password" name="password" placeholder="Password" required>

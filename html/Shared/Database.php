@@ -1,7 +1,7 @@
 <?php
 
 namespace Shared;
-use Student\PHP\mysqli;
+use mysqli;
 
 class Database
 {
@@ -11,7 +11,7 @@ class Database
     {
         $this->conn = new mysqli("db", "your_username", "your_password", "lamp_db");
 
-        if ($this->$_SESSION['con']->connect_error) {
+        if ($this->conn->connect_error) {
             die("Connection failed: " . $this->conn->connect_error);
         }
     }
@@ -25,4 +25,17 @@ class Database
     {
         return $this->conn->query($sql);
     }
+
+    public function error()
+    {
+        return $this->conn->error;
+    }
+
+    public function close()
+    {
+        if ($this->conn) {
+            $this->conn->close();
+        }
+    }
 }
+?>

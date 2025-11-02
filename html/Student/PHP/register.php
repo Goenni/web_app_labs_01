@@ -1,12 +1,11 @@
 <?php
-session_start();
 include("../PHP/database_connection.php");
-
-function updateStudent()
+session_start();
+function registerStudent()
 {
     $db = DatabaseSingleton::getInstance()->getConnection();
 
-    // Get the student ID from the hidden input
+    // Get the form inputs
     $student_id = $_POST['student_id'];
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
@@ -18,15 +17,15 @@ function updateStudent()
         exit();
     }
 
-    // Update the student in the database
-    $query = "UPDATE students SET 
-              firstname = '$firstname', 
-              lastname = '$lastname', 
-              password = '$password' 
-              WHERE id = $student_id";
+    // Hash the password
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    // Insert the student into the database
+    $query = "INSERT INTO students (student_id, firstname, lastname, password) 
+              VALUES ($student_id, '$firstname', '$lastname', '$hashed_password')";
 
     if ($db->query($query) === TRUE) {
-        echo "Student updated successfully!";
+        echo "Student registered successfully!";
         // Optionally redirect to another page
         header("Location: ../home.php");
         exit();
@@ -36,5 +35,5 @@ function updateStudent()
 }
 
 // Call the function
-updateStudent();
+registerStudent();
 ?>

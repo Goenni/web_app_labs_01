@@ -1,10 +1,9 @@
 <?php
 include("../PHP/get_courses.php");
-$courses = getCourses();
-$username = $_SESSION['username'];
+session_start();
 $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
-$studentID = $_SESSION['student_id']; // Make sure this is set in your login
+$student_id = $_SESSION['student_id']; // Make sure this is set in your login
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +13,7 @@ $studentID = $_SESSION['student_id']; // Make sure this is set in your login
 </head>
 <body>
 <div id="profile">
-    <img id="user_icon" src=".../Shared/user-icon.webp" alt="profile picture" title="Edit Profile">
+    <img id="user_icon" src="../../Shared/user-profile.webp" alt="profile picture" title="Edit Profile">
     <span id="greeting">Hello, <?php echo $firstname . " " . $lastname; ?></span>
 </div>
 

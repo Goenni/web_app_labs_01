@@ -1,13 +1,23 @@
 <?php
-
+include "../../Shared/Database.php";
 use Shared\Database;
 
-include "Database.php";
-function getDatabaseConnection()
-{
-    if (isset($_SESSION['db'])) {
-        return $_SESSION['db'];
+class DatabaseSingleton {
+    private static $instance = null;
+    private $connection;
+
+    private function __construct() {
+        $this->connection = new Database();
     }
-    $_SESSION['db'] = new Database();
-    return $_SESSION['db'];
+
+    public static function getInstance() {
+        if (self::$instance === null) {
+            self::$instance = new DatabaseSingleton();
+        }
+        return self::$instance;
+    }
+
+    public function getConnection() {
+        return $this->connection;
+    }
 }

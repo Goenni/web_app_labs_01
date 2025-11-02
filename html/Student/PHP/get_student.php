@@ -2,35 +2,35 @@
 include("../PHP/database_connection.php");
 function getStudent()
 {
-    $db = getDatabaseConnection();
-    $username = $_POST['username'];
+    $db = DatabaseSingleton::getInstance()->getConnection();
+    $student_id = $_POST['student_id'];
     $password = $_POST['password'];
 
-    if (empty($username) || empty($password)) {
+    if (empty($student_id) || empty($password)) {
         echo "Username and password are required.";
         exit();
     }
 
-    $result = $db->query("SELECT * FROM students WHERE username = '$username'");
+    $result = $db->query("SELECT * FROM students WHERE student_id = '$student_id'");
 
     if ($result->num_rows > 0) {
         $student = $result->fetch_assoc();
 
         // Verify password (assuming it's stored as plain text; use password_verify() if hashed)
-        if ($password === $student['password']) {
+        if (password_verify($password, $student['password'])) {
             // Login successful
-            $_SESSION['username'] = $student['username'];
+            $_SESSION['student_id'] = $student['student_id'];
             $_SESSION['firstname'] = $student['firstname'];
             $_SESSION['lastname'] = $student['lastname'];
 
             // Redirect to dashboard or home page
-            header("Location: ../dashboard.php");
+            header("Location: ../HTML/home.php");
             exit();
         } else {
             echo "Invalid password.";
         }
     } else {
-        echo "Username not found.";
+        echo "Student not found.";
     }
 }
 
