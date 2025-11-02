@@ -1,5 +1,6 @@
 <?php
-include("../../Shared/database_connection.php");
+include ("../../Shared/DatabaseSingleton.php");
+use Shared\DatabaseSingleton;
 session_start();
 function registerStudent()
 {

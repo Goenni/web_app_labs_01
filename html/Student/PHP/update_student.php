@@ -1,6 +1,6 @@
 <?php
-session_start();
-include("../../Shared/database_connection.php");
+include ("../../Shared/DatabaseSingleton.php");
+use Shared\DatabaseSingleton;
 
 function updateStudent()
 {

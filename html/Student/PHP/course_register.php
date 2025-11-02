@@ -1,5 +1,6 @@
 <?php
-include("../../Shared/database_connection.php");
+include ("../../Shared/DatabaseSingleton.php");
+use Shared\DatabaseSingleton;
 function registerForCourse($courseID){
     $db = DatabaseSingleton::getInstance()->getConnection();
     $student_id = $_SESSION['studentID'];

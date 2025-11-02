@@ -5,6 +5,8 @@
     <title>Home</title>
 </head>
 <body>
+
+<a href="students.php">Students</a>
 <!-- Courses List -->
 <table>
     <tr>

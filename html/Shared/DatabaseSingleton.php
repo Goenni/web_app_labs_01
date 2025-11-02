@@ -1,6 +1,8 @@
 <?php
+
+namespace Shared;
+
 include "Database.php";
-use Shared\Database;
 
 class DatabaseSingleton {
     private static $instance = null;

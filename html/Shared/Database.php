@@ -1,8 +1,9 @@
 <?php
 
-namespace Shared;
-use mysqli;
 
+namespace Shared;
+
+use mysqli;
 class Database
 {
     private $conn;
@@ -38,4 +39,5 @@ class Database
         }
     }
 }
+
 ?>
