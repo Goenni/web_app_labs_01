@@ -1,4 +1,7 @@
 <?php
+
+use Shared\Database;
+
 include "Database.php";
 function getDatabaseConnection()
 {

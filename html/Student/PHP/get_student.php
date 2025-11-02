@@ -1,5 +1,5 @@
 <?php
-include ("../PHP/database_connection.php");
+include("../PHP/database_connection.php");
 function getStudent()
 {
     $db = getDatabaseConnection();
