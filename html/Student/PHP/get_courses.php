@@ -1,8 +1,7 @@
 <?php
-include "database_connection.php";
-function getCourses(){
+include("../../Shared/database_connection.php");
+function getStudentsCourses(){
     $db = DatabaseSingleton::getInstance()->getConnection();
-    $studentID = $_SESSION['studentID'];
-    return ($db->query("SELECT coursename FROM registrations WHERE studentID = $studentID"));
+    $student_id = $_SESSION['student_id'];
+    return ($db->query("SELECT coursename FROM registrations WHERE student_id = $student_id"));
 }
-?>

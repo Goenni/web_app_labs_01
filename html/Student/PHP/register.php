@@ -1,5 +1,5 @@
 <?php
-include("../PHP/database_connection.php");
+include("../../Shared/database_connection.php");
 session_start();
 function registerStudent()
 {

@@ -1,5 +1,5 @@
 <?php
-include "../../Shared/Database.php";
+include "Database.php";
 use Shared\Database;
 
 class DatabaseSingleton {

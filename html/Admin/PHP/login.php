@@ -1,18 +1,16 @@
 <?php
 include("../../Shared/database_connection.php");
-function getStudent()
+function login($username, $password)
 {
     session_start();
     $db = DatabaseSingleton::getInstance()->getConnection();
-    $student_id = $_POST['student_id'];
-    $password = $_POST['password'];
 
-    if (empty($student_id) || empty($password)) {
+    if (empty($username) || empty($password)) {
         echo "Username and password are required.";
         exit();
     }
 
-    $result = $db->query("SELECT * FROM students WHERE student_id = '$student_id'");
+    $result = $db->query("SELECT * FROM admin WHERE username = '$username'");
 
     if ($result->num_rows > 0) {
         $student = $result->fetch_assoc();
@@ -20,10 +18,6 @@ function getStudent()
         // Verify password (assuming it's stored as plain text; use password_verify() if hashed)
         if (password_verify($password, $student['password'])) {
             // Login successful
-            $_SESSION['student_id'] = $student['student_id'];
-            $_SESSION['firstname'] = $student['firstname'];
-            $_SESSION['lastname'] = $student['lastname'];
-
             // Redirect to dashboard or home page
             header("Location: ../HTML/home.php");
             exit();
@@ -35,5 +29,4 @@ function getStudent()
     }
 }
 
-getStudent();
-?>
+login($_POST['username'], $_POST['password']);

@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register for Course</title>
+    <title>Home</title>
 </head>
 <body>
-<h2 style="text-align:center;">Available Courses</h2>
-
+<!-- Courses List -->
 <table>
     <tr>
         <th>ID</th>
@@ -16,7 +15,7 @@
     </tr>
 
     <?php
-    include "../PHP/get_courses.php";
+    include("../../Shared/get_available_courses.php");
     $result = getAvailableCourses();
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
@@ -25,9 +24,9 @@
             echo "<td>" . $row["course_name"] . "</td>";
             echo "<td>" . $row["lecturer"] . "</td>";
             echo "<td>
-                    <form method='POST' action='course_register.php'>
+                    <form method='POST' action='../PHP/delete_course.php'>
                         <input type='hidden' name='course_id' value='" . $row["course_id"] . "'>
-                        <button type='submit'>Register</button>
+                        <button type='submit'>Delete Course</button>
                     </form>
                   </td>";
             echo "</tr>";
@@ -37,5 +36,11 @@
     }
     ?>
 </table>
+
+<h2>Create New Course</h2>
+<form method='POST' action='../PHP/create_course.php' onsubmit="setTimeout(() => window.location.reload(), 100);">
+    <input type="text" name="course_name" placeholder="Course Name"><br>
+    <input type="text" name="lecturer" placeholder="Lecturer"><br>
+    <input type="submit" id="create_course_submit" value="Create Course">
+</form>
 </body>
-</html>

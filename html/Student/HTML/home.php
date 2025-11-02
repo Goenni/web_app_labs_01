@@ -18,16 +18,35 @@ $student_id = $_SESSION['student_id']; // Make sure this is set in your login
 </div>
 
 <!-- Courses List -->
-<div id="courses">
-    <h3>Your Courses:</h3>
-    <ul>
-        <?php
-        while ($row = $courses->fetch_assoc()) {
-            echo "<li>" . htmlspecialchars($row['coursename']) . "</li>";
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Course Name</th>
+        <th>Lecturer</th>
+        <th>Action</th>
+    </tr>
+
+    <?php
+    $result = getStudentsCourses();
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>" . $row["course_id"] . "</td>";
+            echo "<td>" . $row["course_name"] . "</td>";
+            echo "<td>" . $row["lecturer"] . "</td>";
+            echo "<td>
+                    <form method='POST' action='drop_course.php'>
+                        <input type='hidden' name='course_id' value='" . $row["course_id"] . "'>
+                        <button type='submit'>Drop Course</button>
+                    </form>
+                  </td>";
+            echo "</tr>";
         }
-        ?>
-    </ul>
-</div>
+    } else {
+        echo "<tr><td colspan='4'>No courses found.</td></tr>";
+    }
+    ?>
+</table>
 
 <!-- Popup HTML -->
 <div id="popup" class="register">
@@ -51,7 +70,7 @@ $student_id = $_SESSION['student_id']; // Make sure this is set in your login
 
 <script>
     document.getElementById("user_icon").addEventListener("click", function() {
-        openStudentPopup(<?php echo $studentID; ?>);
+        openStudentPopup(<?php echo $student_id; ?>);
     });
 
     function openStudentPopup(studentId) {

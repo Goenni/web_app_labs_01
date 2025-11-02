@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../PHP/database_connection.php");
+include("../../Shared/database_connection.php");
 
 function updateStudent()
 {
