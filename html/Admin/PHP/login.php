@@ -22,8 +22,8 @@ function login($username, $password)
         if (verify_admin_credentials($admin['username'], $admin['password'])) {
             // Login successful
             // Redirect to dashboard or home page
-            $_SESSION['admin'] = $admin;
-            $_SESSION['password'] = password_hash($password, PASSWORD_DEFAULT);
+            $_SESSION['username'] = $admin['username'];
+            $_SESSION['password'] = $admin['password'];
             header("Location: ../HTML/home.php");
             exit();
         } else {

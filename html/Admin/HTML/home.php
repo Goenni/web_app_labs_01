@@ -1,10 +1,3 @@
-<?php
-include ("../../Shared/verify_credentials.php");
-if(!isset($_SESSION["username"]) || (!verify_admin_credentials($_SESSION['username'], $_SESSION['password']))){
-    header("Location: ../HTML/login.php");
-    exit();
-};
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

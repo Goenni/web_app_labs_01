@@ -18,9 +18,10 @@ function getStudent()
         if (verify_student_credentials($student_id, $password)) {
             // Login successful
             $result = $db->query("SELECT * FROM students WHERE student_id = '$student_id'");
-            $_SESSION['student_id'] = $result['student_id'];
-            $_SESSION['firstname'] = $result['firstname'];
-            $_SESSION['lastname'] = $result['lastname'];
+            $row = $result->fetch_assoc();
+            $_SESSION['student_id'] = $row['student_id'];
+            $_SESSION['firstname'] = $row['firstname'];
+            $_SESSION['lastname'] = $row['lastname'];
 
             // Redirect to dashboard or home page
             header("Location: ../HTML/home.php");

@@ -1,9 +1,5 @@
 <?php
-include ("../../Shared/verify_credentials.php");
-if(!isset($_SESSION["student_id"]) || (!verify_student_credentials($_SESSION['student_id'], $_SESSION['password']))){
-    header("Location: ../HTML/login.php");
-    exit();
-}
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,9 +18,6 @@ if(!isset($_SESSION["student_id"]) || (!verify_student_credentials($_SESSION['st
 <!-- Navigation -->
 <nav>
     <a href="home.php">Home</a>
-    <a href="my_courses.php">My Courses</a>
-    <a href="profile.php">Profile</a>
-    <a href="../../Shared/logout.php">Logout</a>
 </nav>
 
 <!-- Main Content -->
@@ -43,8 +36,9 @@ if(!isset($_SESSION["student_id"]) || (!verify_student_credentials($_SESSION['st
             </thead>
             <tbody>
             <?php
-            include "../PHP/get_courses.php";
+            include "../../Shared/get_available_courses.php";
             $result = getAvailableCourses();
+            $student_id = $_SESSION['student_id'];
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     echo "<tr>";
@@ -52,8 +46,9 @@ if(!isset($_SESSION["student_id"]) || (!verify_student_credentials($_SESSION['st
                     echo "<td>" . htmlspecialchars($row["course_name"]) . "</td>";
                     echo "<td>" . htmlspecialchars($row["lecturer"]) . "</td>";
                     echo "<td>
-                                    <form method='POST' action='course_register.php' style='display:inline;'>
+                                    <form method='POST' action='../PHP/course_register.php' style='display:inline;'>
                                         <input type='hidden' name='course_id' value='" . htmlspecialchars($row["course_id"]) . "'>
+                                        <input type='hidden' name='student_id' value='$student_id'>
                                         <button type='submit' class='btn-register'>Register</button>
                                     </form>
                                   </td>";

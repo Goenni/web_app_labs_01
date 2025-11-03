@@ -18,12 +18,9 @@ function registerStudent()
         exit();
     }
 
-    // Hash the password
-    $hashed_password = password_hash(password_hash($password, PASSWORD_DEFAULT), PASSWORD_DEFAULT);
-
     // Insert the student into the database
     $query = "INSERT INTO students (student_id, firstname, lastname, password) 
-              VALUES ($student_id, '$firstname', '$lastname', '$hashed_password')";
+              VALUES ($student_id, '$firstname', '$lastname', '$password')";
 
     if ($db->query($query) === TRUE) {
         header("Location: ../HTML/login.php");
